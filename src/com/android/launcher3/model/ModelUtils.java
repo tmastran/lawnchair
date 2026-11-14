@@ -44,6 +44,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.function.Predicate;
 
+import app.lawnchair.util.ShortcutBadgeUtils;
+
 /**
  * Utils class for {@link com.android.launcher3.LauncherModel}.
  */
@@ -125,7 +127,8 @@ public class ModelUtils {
 
         String launchPackage = launchIntent.getComponent() == null
                 ? launchIntent.getPackage() : launchIntent.getComponent().getPackageName();
-        if (!TextUtils.isEmpty(launchPackage)) {
+        if (!ShortcutBadgeUtils.isWebShortcut(launchIntent)
+                && !TextUtils.isEmpty(launchPackage)) {
             IconCache iconCache = LauncherAppState.getInstance(context).getIconCache();
             BitmapInfo baseIconInfo = iconInfo;
             try {

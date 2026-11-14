@@ -28,6 +28,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.util.LongSparseArray
 import android.util.SparseArray
+import app.lawnchair.util.ShortcutBadgeUtils
 import com.android.launcher3.Flags
 import com.android.launcher3.InvariantDeviceProfile
 import com.android.launcher3.LauncherSettings.Favorites
@@ -149,7 +150,7 @@ class WorkspaceItemProcessor(
 
         // LC-Note: Show badge for legacy shortcut when possible
         val launchPackage = intent.component?.packageName ?: intent.`package`
-        if (!launchPackage.isNullOrEmpty()) {
+        if (!ShortcutBadgeUtils.isWebShortcut(intent) && !launchPackage.isNullOrEmpty()) {
             info.bitmap = info.bitmap.withBadgeInfo(
                 iconCache.getShortcutInfoBadge(launchPackage, c.user)
             )
