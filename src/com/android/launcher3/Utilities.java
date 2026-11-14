@@ -109,6 +109,7 @@ import java.util.function.Predicate;
 
 import app.lawnchair.icons.ExtendedBitmapDrawable;
 import app.lawnchair.preferences.PreferenceManager;
+import app.lawnchair.util.ShortcutBadgeUtils;
 
 /**
  * Various utilities shared amongst the Launcher's classes.
@@ -799,7 +800,8 @@ public final class Utilities {
                 mainIcon = CacheableShortcutInfo.getIcon(context, si,
                         appState.getInvariantDeviceProfile().fillResIconDpi);
                 // Only fetch badge if the icon is on workspace
-                if (info.id != ItemInfo.NO_ID && badge == null) {
+                if (info.id != ItemInfo.NO_ID && badge == null
+                        && !ShortcutBadgeUtils.shouldSkipSourceBadge(context, si)) {
                     badge = appState.getIconCache().getShortcutInfoBadge(si).newIcon(
                             context,
                             ThemeManager.INSTANCE.get(context).isIconThemeEnabled()
